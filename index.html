@@ -8,43 +8,41 @@
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #000000; /* Black background */
+            background-color: #000000;
             font-family: 'Arial', sans-serif;
-            color: #ffffff; /* Ensure text is visible against the black background */
+            color: #ffffff;
         }
-
         #billboard {
             text-align: center;
-            background-color: #000000; /* Black background for the billboard */
+            background-color: #000000;
             padding: 20px;
             border-radius: 10px;
             margin: 50px auto;
             width: 80%;
-            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.6); /* Red edge */
-            border: 2px solid red; /* Red border for enhanced visibility */
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.6);
+            border: 2px solid red;
         }
-
         #billboard h1 {
-            color: #ff0000; /* Red color for the title */
-            text-shadow: 2px 2px 4px #ff0000; /* Red text shadow for a glowing effect */
+            color: #ff0000;
+            text-shadow: 2px 2px 4px #ff0000;
         }
-
         #leaderboard {
             list-style-type: none;
             padding: 0;
         }
-
         #leaderboard li {
             font-size: 20px;
             margin: 10px;
-            color: #ffffff; /* White color for the list items */
-            text-shadow: 1px 1px 2px #ff0000; /* Red text shadow for the list items */
+            color: #ffffff;
+            text-shadow: 1px 1px 2px #ff0000;
+            cursor: pointer;
         }
-
+        .hidden {
+            display: none;
+        }
         .wins {
             animation: blink 1s infinite;
         }
-
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
@@ -55,16 +53,43 @@
     <div id="billboard">
         <h1>Mario Party Stats</h1>
         <ul id="leaderboard">
-            <li id="Ariana">Ariana: <span class="wins">⭐ 0 Wins</span></li>
-            <li id="Frigeon">Frigeon: <span class="wins">⭐ 2 Wins</span></li>
-            <li id="Addy">Addy: <span class="wins">⭐ 0 Wins</span></li>
-            <li id="Shadow">Shadow: <span class="wins">⭐ 2 Wins</span></li>
-            <li id="Ryudious">Ryudious: <span class="wins">⭐ 0 Wins</span></li>
+            <li id="Ariana" data-stats="Stars: 3, Coins: 240, Items: 6, Hidden Blocks: 1, Bowser Spaces: 1">Ariana: <span class="wins">⭐ 0 Wins</span></li>
+            <li id="Frigeon" data-stats="Stars: 6, Coins: 234, Items: 4, Hidden Blocks: 1, Bowser Spaces: 0">Frigeon: <span class="wins">⭐ 2 Wins</span></li>
+            <li id="Addy" data-stats="Stars: 0, Coins: 0, Items: 0, Hidden Blocks: 0, Bowser Spaces: 0">Addy: <span class="wins">⭐ 0 Wins</span></li>
+            <li id="Shadow" data-stats="Stars: 5, Coins: 254, Items: 6, Hidden Blocks: 1, Bowser Spaces: 0">Shadow: <span class="wins">⭐ 2 Wins</span></li>
+            <li id="Ryudious" data-stats="Stars: 3, Coins: 246, Items: 4, Hidden Blocks: 1, Bowser Spaces: 0">Ryudious: <span class="wins">⭐ 0 Wins</span></li>
         </ul>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Placeholder for future dynamic updates or interactions
+            const leaderboardItems = document.querySelectorAll('#leaderboard li');
+            document.body.addEventListener('click', function(e) {
+                if (!e.target.matches('#leaderboard li')) {
+                    leaderboardItems.forEach(li => {
+                        li.classList.remove('hidden');
+                        const statsDiv = li.querySelector('.stats');
+                        if (statsDiv) statsDiv.remove();
+                    });
+                }
+            });
+            leaderboardItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isStatsVisible = this.querySelector('.stats');
+                    if (!isStatsVisible) {
+                        const statsText = "<div class='stats'>" + this.getAttribute('data-stats').replace(/, /g, '<br>') + "</div>";
+                        this.insertAdjacentHTML('beforeend', statsText);
+                        leaderboardItems.forEach(li => {
+                            if (li !== this) {
+                                li.classList.add('hidden');
+                            }
+                        });
+                    } else {
+                        leaderboardItems.forEach(li => li.classList.remove('hidden'));
+                        isStatsVisible.remove();
+                    }
+                });
+            });
         });
     </script>
 </body>
