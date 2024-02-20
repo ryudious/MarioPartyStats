@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Party Stats</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #000000; /* Black background */
+            font-family: 'Arial', sans-serif;
+            color: #ffffff; /* Ensure text is visible against the black background */
+        }
+
+        #billboard {
+            text-align: center;
+            background-color: #000000; /* Black background for the billboard */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 50px auto;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.6); /* Red edge */
+            border: 2px solid red; /* Red border for enhanced visibility */
+        }
+
+        #billboard h1 {
+            color: #ff0000; /* Red color for the title */
+            text-shadow: 2px 2px 4px #ff0000; /* Red text shadow for a glowing effect */
+        }
+
+        #leaderboard {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #leaderboard li {
+            font-size: 20px;
+            margin: 10px;
+            color: #ffffff; /* White color for the list items */
+            text-shadow: 1px 1px 2px #ff0000; /* Red text shadow for the list items */
+        }
+
+        .wins {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div id="billboard">
+        <h1>Mario Party Stats</h1>
+        <ul id="leaderboard">
+            <li id="pinkpatronus">pinkpatronus: <span class="wins">⭐ 0 Wins</span></li>
+            <li id="frigeon">frigeon: <span class="wins">⭐ 2 Wins</span></li>
+            <li id="aryeez">aryeez: <span class="wins">⭐ 0 Wins</span></li>
+            <li id="shadow402">shadow402: <span class="wins">⭐ 2 Wins</span></li>
+            <li id="ryudious">ryudious: <span class="wins">⭐ 0 Wins</span></li>
+        </ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Placeholder for future dynamic updates or interactions
+        });
+    </script>
+</body>
+</html>
