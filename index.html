@@ -64,35 +64,54 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const leaderboardItems = document.querySelectorAll('#leaderboard li');
-            document.body.addEventListener('click', function(e) {
-                if (!e.target.matches('#leaderboard li')) {
-                    leaderboardItems.forEach(li => {
-                        li.classList.remove('hidden');
-                        const statsDiv = li.querySelector('.stats');
-                        if (statsDiv) statsDiv.remove();
-                    });
-                }
+            const l
+    </script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const leaderboardItems = document.querySelectorAll('#leaderboard li');
+    document.body.addEventListener('click', function(e) {
+        if (!e.target.matches('#leaderboard li')) {
+            leaderboardItems.forEach(li => {
+                li.classList.remove('hidden');
+                const statsDiv = li.querySelector('.stats');
+                if (statsDiv) statsDiv.remove();
             });
-            leaderboardItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const isStatsVisible = this.querySelector('.stats');
-                    if (!isStatsVisible) {
-                        const statsText = "<div class='stats'>" + this.getAttribute('data-stats').replace(/, /g, '<br>') + "</div>";
-                        this.insertAdjacentHTML('beforeend', statsText);
-                        leaderboardItems.forEach(li => {
-                            if (li !== this) {
-                                li.classList.add('hidden');
-                            }
-                        });
-                    } else {
-                        leaderboardItems.forEach(li => li.classList.remove('hidden'));
-                        isStatsVisible.remove();
+        }
+    });
+    leaderboardItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isStatsVisible = this.querySelector('.stats');
+            if (!isStatsVisible) {
+                const statsText = "<div class='stats'>" + this.getAttribute('data-stats').replace(/, /g, '<br>') + "</div>";
+                this.insertAdjacentHTML('beforeend', statsText);
+                leaderboardItems.forEach(li => {
+                    if (li !== this) {
+                        li.classList.add('hidden');
                     }
                 });
-            });
+            } else {
+                leaderboardItems.forEach(li => li.classList.remove('hidden'));
+                isStatsVisible.remove();
+            }
         });
-    </script>
+    });
+
+    // Cube animation logic
+    const cube = document.querySelector('.cube');
+    let posX = 0; // Initial X position
+    let posY = 0; // Initial Y position
+    setInterval(() => {
+        posX += 10; // Move right by 10px
+        if (posX > document.getElementById('billboard').offsetWidth - cube.offsetWidth) {
+            posX = 0; // Reset X position if it exceeds the container width
+            posY += cube.offsetHeight; // Move down by the cube's height
+            if (posY > document.getElementById('billboard').offsetHeight - cube.offsetHeight) {
+                posY = 0; // Reset Y position if it exceeds the container height
+            }
+        }
+        cube.style.left = posX + 'px'; // Update cube's left position
+        cube.style.top = posY + 'px'; // Update cube's top position
+    }, 500); // Repeat every 500 milliseconds
+});
 </body>
 </html>
